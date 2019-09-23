@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using VendasWebMvcClone.Models;
+using VendasWebMvcClone.Data;
 
 namespace VendasWebMvcClone
 {
@@ -39,14 +40,17 @@ namespace VendasWebMvcClone
             services.AddDbContext<VendasWebMvcCloneContext>(options =>
                     options.UseMySql(Configuration.GetConnectionString("VendasWebMvcCloneContext"), builder =>
                         builder.MigrationsAssembly("VendasWebMvcClone")));
+
+            services.AddScoped<ServicoDeEnvio>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ServicoDeEnvio servicoDeEnvio)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                servicoDeEnvio.Seed();
             }
             else
             {
