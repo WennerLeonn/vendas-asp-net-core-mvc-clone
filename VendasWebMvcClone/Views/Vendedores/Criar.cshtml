@@ -1,4 +1,4 @@
-﻿@model  VendasWebMvcClone.Models.Vendedor
+﻿@model  VendasWebMvcClone.Models.ViewModels.ModeloFormularioVendedor
 @{
     ViewData["Title"] = "Criar";
 }
@@ -11,20 +11,26 @@
     <div class="col-md-4">
         <form asp-action="Criar">
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <label asp-for="Vendedor.Name" class="control-label"></label>
+                <input asp-for="Vendedor.Name" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
+                <label asp-for="Vendedor.Email" class="control-label"></label>
+                <input asp-for="Vendedor.Email" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="BirthDate" class="control-label"></label>
-                <input asp-for="BirthDate" class="form-control" />
+                <label asp-for="Vendedor.BirthDate" class="control-label"></label>
+                <input asp-for="Vendedor.BirthDate" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="BaseSalary" class="control-label"></label>
-                <input asp-for="BaseSalary" class="form-control" />
+                <label asp-for="Vendedor.BaseSalary" class="control-label"></label>
+                <input asp-for="Vendedor.BaseSalary" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Vendedor.DepartamentoId" class="control-label">
+                    <select asp-for="Vendedor.DepartamentoId" asp-items="@(new SelectList(Model.Departamentos,"Id","Name"))" class="form-control">
+                    </select>
+                </label>
             </div>
             <div class="form-group">
                 <input type="submit" value="Criar" class="btn btn-dark" />

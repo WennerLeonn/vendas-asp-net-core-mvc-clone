@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using VendasWebMvcClone.Models;
+using VendasWebMvcClone.Models.ViewModels;
 using VendasWebMvcClone.Servicos;
 
 namespace VendasWebMvcClone.Controllers
@@ -11,10 +12,12 @@ namespace VendasWebMvcClone.Controllers
     public class VendedoresController : Controller
     {
         private readonly VendedorServico _vendedorServico;
+        private readonly ServicoDepartamento _servicoDepartamento;
 
-        public VendedoresController(VendedorServico vendedorServico)
+        public VendedoresController(VendedorServico vendedorServico, ServicoDepartamento servicoDepartamento)
         {
             _vendedorServico = vendedorServico;
+            _servicoDepartamento = servicoDepartamento;
         }
 
         public IActionResult Index()
@@ -25,7 +28,9 @@ namespace VendasWebMvcClone.Controllers
 
         public IActionResult Criar()
         {
-            return View();
+            var departamentos = _servicoDepartamento.FindAll();
+            var viewModel = new ModeloFormularioVendedor { Departamentos = departamentos };
+            return View(viewModel);
         }
 
         [HttpPost]
