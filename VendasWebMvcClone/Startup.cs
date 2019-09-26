@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using VendasWebMvcClone.Models;
 using VendasWebMvcClone.Data;
+using VendasWebMvcClone.Servicos;
 
 namespace VendasWebMvcClone
 {
@@ -42,6 +43,7 @@ namespace VendasWebMvcClone
                         builder.MigrationsAssembly("VendasWebMvcClone")));
 
             services.AddScoped<ServicoDeEnvio>();
+            services.AddScoped<VendedorServico>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
