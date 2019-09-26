@@ -12,7 +12,9 @@ namespace VendasWebMvcClone.Models
         public DateTime BirthDate { get; set; }
         public double BaseSalary { get; set; }
         public Departamento Departamento { get; set; }
+        public int DepartamentoId { get; set; }
         public ICollection<RegistroVenda> Vendas { get; set; } = new List<RegistroVenda>();
+        
 
         public Vendedor()
         {

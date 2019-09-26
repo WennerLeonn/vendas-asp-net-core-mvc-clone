@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VendasWebMvcClone.Models;
 
 namespace VendasWebMvcClone.Migrations
 {
     [DbContext(typeof(VendasWebMvcCloneContext))]
-    partial class VendasWebMvcCloneContextModelSnapshot : ModelSnapshot
+    [Migration("20190926092320_DepartamentoForeignKey")]
+    partial class DepartamentoForeignKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
