@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using VendasWebMvcClone.Models;
 using VendasWebMvcClone.Servicos;
 
 namespace VendasWebMvcClone.Controllers
@@ -20,6 +21,19 @@ namespace VendasWebMvcClone.Controllers
         {
             var list = _vendedorServico.FindALL();
             return View(list);
+        }
+
+        public IActionResult Criar()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Criar(Vendedor vendedor)
+        {
+            _vendedorServico.Insert(vendedor);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
