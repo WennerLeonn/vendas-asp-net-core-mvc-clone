@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using VendasWebMvcClone.Models;
 using VendasWebMvcClone.Models.ViewModels;
 using VendasWebMvcClone.Servicos;
+using VendasWebMvcClone.Servicos.Exceptions;
 
 namespace VendasWebMvcClone.Controllers
 {
@@ -77,6 +78,47 @@ namespace VendasWebMvcClone.Controllers
                 return NotFound();
             }
             return View(obj);
+        }
+
+        public IActionResult Editar(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _vendedorServico.FindById(id.Value);
+            if(obj == null)
+            {
+                return NotFound();
+            }
+
+            List<Departamento> departamentos = _servicoDepartamento.FindAll();
+            ModeloFormularioVendedor viewModel = new ModeloFormularioVendedor { Vendedor = obj, Departamentos = departamentos };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Editar(int id, Vendedor vendedor)
+        {
+            if(id != vendedor.Id)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                _vendedorServico.Update(vendedor);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
+            catch (DbConcurrencyException)
+            {
+                return BadRequest();
+            }
         }
     }
 }
