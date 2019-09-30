@@ -2,6 +2,9 @@
 using System.Linq;
 using VendasWebMvcClone.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
 namespace VendasWebMvcClone.Servicos
 {
     public class ServicoDepartamento
@@ -13,9 +16,9 @@ namespace VendasWebMvcClone.Servicos
             _context = context;
         }
 
-        public List<Departamento> FindAll()
+        public async Task<List<Departamento>> FindAllAsync()
         {
-            return _context.Departamento.OrderBy(x => x.Name).ToList();
+            return await _context.Departamento.OrderBy(x => x.Name).ToListAsync();
         }
     }
 }
