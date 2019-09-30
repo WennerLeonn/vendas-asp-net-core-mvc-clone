@@ -25,7 +25,7 @@ namespace VendasWebMvcClone.Servicos
         public async Task InsertAsync(Vendedor obj)
         {
             _context.Add(obj);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         public async Task<Vendedor> FindByIdAsync(int id)
@@ -35,9 +35,16 @@ namespace VendasWebMvcClone.Servicos
 
         public async Task RemoveAsync(int id)
         {
-            var obj = await _context.Vendedor.FindAsync(id);
-            _context.Vendedor.Remove(obj);
-           await _context.SaveChangesAsync();
+            try
+            {
+                var obj = await _context.Vendedor.FindAsync(id);
+                _context.Vendedor.Remove(obj);
+                await _context.SaveChangesAsync();
+            }
+            catch(DbUpdateException e)
+            {
+                throw new IntegrandoExecao("Não posso deletar um vendendor que contenha vendas! ");
+            }
         }
 
         public async Task UpdateAsync(Vendedor obj)
@@ -50,7 +57,7 @@ namespace VendasWebMvcClone.Servicos
             try
             {
                 _context.Update(obj);
-                _context.SaveChangesAsync();
+               await _context.SaveChangesAsync();
             }
             catch(DbUpdateConcurrencyException e)
             {
